@@ -1,0 +1,34 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<div class="blog_articles" id="app">
+	<div class="panel-heading"><h3>文章管理</h3></div>
+	<el-form>
+	  <el-form-item label="审批人">
+	    <el-input placeholder="审批人"></el-input>
+	  </el-form-item>
+	  <el-form-item label="活动区域">
+	    <el-select  placeholder="活动区域">
+	      <el-option label="区域一" value="shanghai"></el-option>
+	      <el-option label="区域二" value="beijing"></el-option>
+	    </el-select>
+	  </el-form-item>
+	</el-form>
+</div>
+<script>
+	var vm = new Vue({
+	  el: '#app',
+	  data: {
+	  	form: {
+        // name: '',
+        // region: '',
+        // date1: '',
+        // date2: '',
+        // delivery: false,
+        // type: [],
+        // resource: '',
+        // desc: ''
+      }
+	  }
+	}) 
+</script>

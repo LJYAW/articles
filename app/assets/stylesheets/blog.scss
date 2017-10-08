@@ -1,0 +1,24 @@
+// Place all the styles related to the blog controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.blog_articles {
+	width:95%;
+	margin:0 auto;
+	.panel-heading {
+		padding:10px 15px;
+		color:#333;
+		background-color: #f5f5f5;
+		border:1px solid #ddd;
+		border-top-left-radius:4px;
+		border-top-right-radius:4px;
+		h3 {
+			margin:0;
+		}
+	}
+	.el-form-item {
+		display: inline-block;
+		.el-form-item__content {
+			display: inline-block;
+		}
+	}
+}
