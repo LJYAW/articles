@@ -19,6 +19,7 @@
 		margin-top: 10px;
 		.el-form-item {
 			display: inline-block;
+			margin-right: 15px;
 			.el-form-item__content {
 				display: inline-block;
 				.el-select .el-input__inner{
@@ -39,11 +40,56 @@
 				}
 			}
 		}
+		.short_title {
+			.el-form-item__content {
+				.el-select {
+					width:200px;
+				}
+			}
+		}
+		.type {
+			.el-form-item__content {
+				.el-select {
+					width:120px;
+				}
+			}
+		}
+		.month {
+			.el-form-item__content {
+				.el-select {
+					width:120px;
+				}
+			}
+		}
+	}
+	.el-table_1_column_1{
+		width:5% !important;
 	}
 }
 .el-select-dropdown {
 	margin-top: 0 !important;
+	.list{
+		height:160px;
+		overflow-y: scroll;
+	}
+	.short_title_list{
+		height:160px;
+		width:200px;
+		overflow-y: scroll;
+	}
 	.el-input__inner {
+		display: block;
+		margin:0 auto;
+		border-color:#aaa;
+		outline: none;
+		&:hover {
+			border-color:#aaa;
+		}
+	}
+	.short_title_input {
+		display: inline-block;
+	}
+	.title_input .el-input__inner {
 		width:240px;
 		display: block;
 		margin:0 auto;
@@ -53,4 +99,17 @@
 			border-color:#aaa;
 		}
 	}
+	.short_title_input .el-input__inner{
+		width:190px;
+		margin:0 auto;
+	}
+}
+.month .el-input__inner {
+	border-color:#aaa !important;
+	&:hover{
+		border-color:#aaa !important;
+	}
+}
+.month .el-input__innner {
+	width:120px;
 }
