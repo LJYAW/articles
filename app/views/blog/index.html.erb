@@ -64,7 +64,7 @@
 	    </el-select>
 	  </el-form-item>
 	  <el-form-item label="创建日期筛选" class="title month">
-	    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+	    <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
 	  </el-form-item>
 	</el-form>
 	<template>
@@ -76,7 +76,7 @@
 	    <el-table-column prop="select" label="精选？" style="width: 10%"></el-table-column>
 	    <el-table-column prop="submit" label="发布？" style="width: 10%"></el-table-column>
 	    <el-table-column prop="sort" label="排序" style="width: 10%"></el-table-column>
-	    <el-table-column prop="date" label="创建日期" style="width: 10%"><el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker></el-table-column>
+	    <el-table-column prop="date" label="创建日期" style="width: 10%"></el-table-column>
 	    <el-table-column label="操作">
       	<template scope="scope">
         	<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
