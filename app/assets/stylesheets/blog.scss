@@ -175,4 +175,11 @@
 			}
 		}
 	}
+	.el-checkbox {
+		display: block;
+		margin-bottom: 15px;
+	}
+	.el-checkbox+.el-checkbox {
+		margin-left: 0;
+	}
 }

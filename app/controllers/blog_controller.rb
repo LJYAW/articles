@@ -5,9 +5,11 @@ class BlogController < ApplicationController
   end
 
   def show
+  	@article =Article.find(params[:id])
   end
 
   def new
+  	@article=Article.new
   end
 
   def edit

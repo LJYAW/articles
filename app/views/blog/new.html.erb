@@ -1,14 +1,55 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<link rel="shortcut icon" href="favicon.ico"></head>
-<script type="text/javascript" src="build.js"></script>
+<div class="new_articles" id="title">
+	<h1>添加新文章</h1>
+	<el-form ref="form" :model="form" :rules="rules">
+	  <el-form-item label="文章标题(title)" prop="title" >
+	    <el-input v-model="form.title"></el-input>
+	  </el-form-item>
+	  <el-form-item label="短标题(short_title)" prop="short_title" >
+	    <el-input v-model="form.short_title"></el-input>
+	  </el-form-item>
+	  <el-form-item label="关键字(keywords)" prop="keywords" >
+	    <el-input v-model="form.keywords"></el-input>
+	  </el-form-item>
+	  <el-form-item label="描述(description)" prop="description" >
+	    <el-input v-model="form.description"></el-input>
+	  </el-form-item>
+	  <el-form-item label="排序(数字越小越靠前)(sequence)" prop="sequence" >
+	    <el-input v-model="form.sequence"></el-input>
+	  </el-form-item>
+	  <el-form-item label="类别(category)" prop="category" >
+	    <template>
+			  <el-select v-model="value" placeholder="">
+			    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+			  </el-select>
+			</template>
+	  </el-form-item>
+	  <template>
+		  <el-checkbox v-model="select">是否为精选</el-checkbox>
+		  <el-checkbox v-model="submit">是否为发布</el-checkbox>
+		</template>
+	  <!-- <el-form-item label="文章封面" prop="sequence" >
+	    <el-input v-model="form.sequence"></el-input>
+	  </el-form-item>
+	  <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove"
+      :file-list="fileList">
+      <el-button size="small" type="primary">点击上传</el-button>
+		  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+		</el-upload> -->
+	  <el-form-item>
+	    <el-button type="primary">保存</el-button>
+	    <el-button  @click="resetForm('form')">返回</el-button>
+	  </el-form-item>
+	</el-form>
 </div>
-<div id="app"></div>
 <script type="text/javascript">
 	var vm = new Vue ({
-		el: '#app',
+		el: '#title',
 		data:{
+			select: false,
+			submit: false,
 			value: '',
 			htmlForEditor: null,
 			form: {
