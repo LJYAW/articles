@@ -64,8 +64,12 @@
 	    </el-select>
 	  </el-form-item>
 	  <el-form-item label="创建日期筛选" class="title month">
-	    <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
+	    <el-date-picker type="daterange" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
 	  </el-form-item>
+	  <button class="create_articles"><a href="articles/new">新建文章</a></button>
+	  <!-- <el-form-item class="create_articles">
+	    <el-button type="primary" @click="newArticle">新建文章</el-button>
+	  </el-form-item> -->
 	</el-form>
 	<template>
 	  <el-table :data="tableData" stripe style="width: 100%">
@@ -141,6 +145,11 @@
           submit:'是',
           sort:'6',
         }]
-	  }
+	  },
+	  methods: {
+      newArticle(){
+        this.$router.push({ name: 'new'});
+      }
+    }
 	}) 
 </script>

@@ -1,0 +1,138 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<link rel="shortcut icon" href="favicon.ico"></head>
+<script type="text/javascript" src="build.js"></script>
+</div>
+<div id="app"></div>
+<script type="text/javascript">
+	var vm = new Vue ({
+		el: '#app',
+		data:{
+			value: '',
+			htmlForEditor: null,
+			form: {
+        title: '',
+        short_title: '',
+        keywords: '',
+        description: '',
+        sequence: '',
+        category: '',
+        // region: '',
+        // date: '',
+        // date2: '',
+        // delivery: false,
+        // type: [],
+        // resource: '',
+        // desc: ''
+      },
+      options: [{
+        value: '选项1',
+        label: '日本'
+      }, {
+        value: '选项2',
+        label: '亚洲'
+      }, {
+        value: '选项3',
+        label: '澳大利亚'
+      }, {
+        value: '选项4',
+        label: '新西兰'
+      }, {
+        value: '选项5',
+        label: '美国'
+      },{
+        value: '选项6',
+        label: '加拿大'
+      },{
+        value: '选项7',
+        label: '海岛'
+      },{
+        value: '选项8',
+        label: '极光'
+      },{
+        value: '选项9',
+        label: '签证'
+      },{
+        value: '选项10',
+        label: '欧洲'
+      },{
+        value: '选项11',
+        label: '北欧'
+      },{
+        value: '选项12',
+        label: '英国'
+      },{
+        value: '选项13',
+        label: '酒店'
+      },{
+        value: '选项14',
+        label: '美食'
+      },{
+        value: '选项15',
+        label: '购物'
+      },{
+        value: '选项16',
+        label: '定制游'
+      },{
+        value: '选项17',
+        label: '海外婚礼'
+      },{
+        value: '选项18',
+        label: '亲子游'
+      }],
+      rules: {
+        title: [
+          { required: true, message: '请输入文章标题名称', trigger: 'blur' },
+          { min: 0, message: '长度大于0个字符', trigger: 'blur' }
+        ],
+        short_title: [
+          { required: true, message: '请输入短标题名称', trigger: 'blur' },
+          { min: 0, message: '长度大于0个字符', trigger: 'blur' }
+        ],
+        keywords: [
+          { required: true, message: '请输入关键字', trigger: 'blur' },
+          { min: 0, message: '长度大于0个字符', trigger: 'blur' }
+        ],
+        description: [
+          { required: true, message: '请输入您的描述', trigger: 'blur' },
+          { min: 0, message: '长度大于0个字符', trigger: 'blur' }
+        ],
+        sequence: [
+          { required: true, message: '请输入排序数字', trigger: 'blur' },
+          { min: 0, message: '长度大于0个字符', trigger: 'blur' }
+        ],
+        category: [
+          { required: true, message: '请输入文章类别', trigger: 'blur' },
+          { min: 0, message: '长度大于0个字符', trigger: 'blur' }
+        ],
+        // region: [
+        //   { required: true, message: '请选择活动区域', trigger: 'change' }
+        // ],
+        // date1: [
+        //   { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        // ],
+        // date2: [
+        //   { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+        // ],
+        // type: [
+        //   { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+        // ],
+        // resource: [
+        //   { required: true, message: '请选择活动资源', trigger: 'change' }
+        // ],
+        // desc: [
+        //   { required: true, message: '请填写活动形式', trigger: 'blur' }
+        // ]
+      },
+		},
+		methods: {
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      // setEditorContent() {
+      //   this.htmlForEditor = '<h1>Html For Editor</h1>'
+      // }
+    }
+	})
+</script>
