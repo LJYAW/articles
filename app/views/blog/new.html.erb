@@ -1,6 +1,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
 <div class="new_articles" id="title">
 	<h1>添加新文章</h1>
 	<el-form ref="form" :model="form" :rules="rules">
@@ -21,14 +22,14 @@
 	  </el-form-item>
 	  <el-form-item label="类别(category)" prop="category" >
 	    <template>
-			  <el-select v-model="value" placeholder="">
+			  <el-select v-model="form.category" placeholder="">
 			    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
 			  </el-select>
 			</template>
 	  </el-form-item>
 	  <template>
-		  <el-checkbox v-model="select">是否为精选</el-checkbox>
-		  <el-checkbox v-model="submit">是否为发布</el-checkbox>
+		  <el-checkbox v-model="form.is_select">是否为精选</el-checkbox>
+		  <el-checkbox v-model="form.is_submit">是否为发布</el-checkbox>
 		</template>
 	  <!-- <el-form-item label="文章封面" prop="sequence" >
 	    <el-input v-model="form.sequence"></el-input>
@@ -39,7 +40,7 @@
 		  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 		</el-upload> -->
 	  <el-form-item>
-	    <el-button type="primary">保存</el-button>
+	    <el-button type="primary" @click="curdRequest('form')">保存</el-button>
 	    <el-button  @click="resetForm('form')">返回</el-button>
 	  </el-form-item>
 	</el-form>
@@ -48,24 +49,18 @@
 	var vm = new Vue ({
 		el: '#title',
 		data:{
-			select: false,
-			submit: false,
 			value: '',
 			htmlForEditor: null,
+			actionName: '<%= raw action_name %>',
 			form: {
-        title: '',
-        short_title: '',
-        keywords: '',
-        description: '',
-        sequence: '',
-        category: '',
-        // region: '',
-        // date: '',
-        // date2: '',
-        // delivery: false,
-        // type: [],
-        // resource: '',
-        // desc: ''
+        category:'',
+        title:'',
+        short_title:'',
+        keywords:'',
+        description:'',
+        sequence:'',
+        is_select: false,
+        is_submit: false,
       },
       options: [{
         value: '选项1',
@@ -147,33 +142,57 @@
           { required: true, message: '请输入文章类别', trigger: 'blur' },
           { min: 0, message: '长度大于0个字符', trigger: 'blur' }
         ],
-        // region: [
-        //   { required: true, message: '请选择活动区域', trigger: 'change' }
-        // ],
-        // date1: [
-        //   { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-        // ],
-        // date2: [
-        //   { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-        // ],
-        // type: [
-        //   { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-        // ],
-        // resource: [
-        //   { required: true, message: '请选择活动资源', trigger: 'change' }
-        // ],
-        // desc: [
-        //   { required: true, message: '请填写活动形式', trigger: 'blur' }
-        // ]
       },
 		},
 		methods: {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      // setEditorContent() {
-      //   this.htmlForEditor = '<h1>Html For Editor</h1>'
-      // }
+      curdRequest(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            switch (this.actionName) {
+              case 'new':
+                this.createPlan()
+                break
+              // case 'edit':
+              //   this.updatePlan(this.formData.id)
+              //   break
+              default:
+                break
+            }
+          } else {
+            return false
+          }
+        })
+      },
+      createPlan() {
+        axios.post('/articles.json', this.form).then((res) => {
+          this.$message({ message: '创建文章成功', type: 'success' })
+          window.location = '/articles'
+        }).catch((error) => {
+          this.handleError(error)
+        })
+      },
+      editUrl(id) {
+        if (this.form.for_dist) {
+          return `/dist_articles/${id}/edit`
+        } else {
+          return `/articles/${id}/edit`
+        }
+      },
+      handleError(error) {
+        if (error.response.data.errors) {
+          let error_info = ''
+          let errors = error.response.data.errors
+          for (item in errors) {
+            error_info += item + ': ' + errors[item] + ' ; '
+          }
+          this.$message({ message: error_info, type: 'error' })
+        } else {
+          this.$message({ message: '创建失败', type: 'error' })
+        }
+      },
     }
 	})
 </script>
