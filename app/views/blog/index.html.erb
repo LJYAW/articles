@@ -1,39 +1,32 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.1/axios.min.js"></script>
 <div class="blog_articles" id="app">
 	<div class="panel-heading"><h3>文章管理</h3></div>
-	<!-- <el-form>
+	<el-form>
 	  <el-form-item class="title">
-	    <el-select  placeholder="文章标题筛选">
+	    <el-select  placeholder="文章标题筛选" v-model="title">
 	    	<el-input class="title_input"></el-input>
-	    	<div class="list">
+	    	<div class="list title_list">
 	    		<el-option label="文章标题筛选" value="文章标题筛选"></el-option>
-		      <el-option label="日本亲子游：参见熊本熊部长大人" value="日本亲子游：参见熊本熊部长大人"></el-option>
-		      <el-option label="圆梦在日本二次元的秋叶原" value="圆梦在日本二次元的秋叶原"></el-option>
-		      <el-option label="何以日本旅行，一去再去" value="何以日本旅行，一去再去"></el-option>
-		      <el-option label="夏与冬的北海道" value="夏与冬的北海道"></el-option>
-		      <el-option label="四月去日本，漫步樱花下" value="四月去日本，漫步樱花下"></el-option>
+	    		<el-option v-for="item in tableData" :key="item.value" :label="item.title" :value="item.title"></el-option>
 	    	</div>
 	    </el-select>
 	  </el-form-item>
 	  <el-form-item class="title short_title">
-	    <el-select  placeholder="文章短标题筛选">
+	    <el-select  placeholder="文章短标题筛选" v-model="short_title">
 	      <el-input class="short_title_input"></el-input>
 	    	<div class="list short_title_list">
 	    		<el-option label="文章短标题筛选" value="文章短标题筛选"></el-option>
-		      <el-option label="日本亲子游" value="日本亲子游"></el-option>
-		      <el-option label="日本秋叶原" value="日本秋叶原"></el-option>
-		      <el-option label="日本旅行" value="日本旅行"></el-option>
-		      <el-option label="北海道旅游" value="北海道旅游"></el-option>
-		      <el-option label="日本樱花旅游" value="日本樱花旅游"></el-option>
+	    		<el-option v-for="item in tableData" :key="item.value" :label="item.title" :value="item.short_title"></el-option>
 	    	</div>
 	    </el-select>
 	  </el-form-item>
 	  <el-form-item class="title type">
-	    <el-select  placeholder="类型筛选">
-	      <el-input class="short_title_input"></el-input>
-	    	<div class="list short_title_list">
+	    <el-select  placeholder="类型筛选" v-model="category">
+	      <el-input class="type_input"></el-input>
+	    	<div class="list type_list">
 	    		<el-option label="类型筛选" value="类型筛选"></el-option>
 		      <el-option label="日本" value="日本"></el-option>
 		      <el-option label="亚洲" value="亚洲"></el-option>
@@ -44,9 +37,9 @@
 	    </el-select>
 	  </el-form-item>
 	  <el-form-item class="title type">
-	    <el-select  placeholder="精选？">
-	      <el-input class="short_title_input"></el-input>
-	    	<div class="list short_title_list">
+	    <el-select  placeholder="精选？" v-model="is_select">
+	      <el-input class="select_input"></el-input>
+	    	<div class="list select_list">
 	    		<el-option label="精选？" value="精选？"></el-option>
 		      <el-option label="是" value="是"></el-option>
 		      <el-option label="否" value="否"></el-option>
@@ -54,9 +47,9 @@
 	    </el-select>
 	  </el-form-item>
 	  <el-form-item class="title type">
-	    <el-select  placeholder="发布？">
-	      <el-input class="short_title_input"></el-input>
-	    	<div class="list short_title_list">
+	    <el-select  placeholder="发布？" v-model="is_submit">
+	      <el-input class="submit_input"></el-input>
+	    	<div class="list submit_list">
 	    		<el-option label="发布？" value="发布？"></el-option>
 		      <el-option label="是" value="是"></el-option>
 		      <el-option label="否" value="否"></el-option>
@@ -67,29 +60,34 @@
 	    <el-date-picker type="daterange" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
 	  </el-form-item>
 	  <button class="create_articles"><a href="articles/new">新建文章</a></button>
-	</el-form> -->
-	<template>
-		<div v-for="article in tableData">
-			{{ article.title }} | {{  article.id}}
-		</div>
-		
-	</template>
+	</el-form>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th><th>文章标题</th><th>短标题</th><th>类型</th><th>精选？</th><th>发布？</th><th>排序</th><th>创建日期</th><th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="(item,index) in tableData">
+				<td>{{item.id}}</td><td>{{item.title}}</td><td>{{item.short_title}}</td><td>{{item.category}}</td><td>{{item.is_select ? '是': '否'}}</td><td>{{item.is_submit ? '是' : '否'}}</td><td>{{item.sequence}}</td><td>{{item.created_at}}</td><td><button><a :href="editUrl(item.id)">编辑</a></button><button @click="deletePlanConfirm(item,index)">删除</button></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 <script>
 	var vm = new Vue({
 	  el: '#app',
 	  data: {
 	  	form: {
-        // name: '',
-        // region: '',
         date: '',
-        // date2: '',
-        // delivery: false,
-        // type: [],
-        // resource: '',
-        // desc: ''
       },
-      tableData: []
+      title:'',
+      short_title:'',
+      category:'',
+      is_select:'',
+      is_submit:'',
+      tableData: [],
+      totalCount: <%= @total %>,
 	  },
 	  created: function() {
 	  	this.tableData = <%= raw @articles.to_json %>
@@ -97,7 +95,37 @@
 	  methods: {
       newArticle(){
         this.$router.push({ name: 'new'});
-      }
+      },
+      editUrl(id) {
+        return `/articles/${id}/edit`
+      },
+      deletePlanConfirm(item,index) {
+        this.$confirm('此操作将永久删除该方案, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+        	// alert(0)
+          this.deletePlan(item,index)
+        }).catch((err) => {
+          this.$message({ message: '已取消删除操作❌', type: 'error' })
+        });
+      },
+      deletePlan(item,index) {
+        axios.delete('/articles/' + item.id).then(res => {
+          this.tableData.splice(index, 1)
+          this.totalCount -= 1
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+        }).catch(error => {
+          this.$message({
+            message: '删除操作错误❌',
+            type: 'error'
+          })
+        })
+      },
     }
 	}) 
 </script>

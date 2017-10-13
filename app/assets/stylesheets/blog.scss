@@ -58,8 +58,8 @@
 		}
 		.month {
 			.el-form-item__content {
-				.el-select {
-					width:120px;
+				input {
+					width:221px;
 				}
 			}
 		}
@@ -75,6 +75,9 @@
 			border-radius:4px;
 			margin-top: 15px;
 			a {
+				display:block;
+				height:38px;
+				line-height: 36px;
 				text-decoration: none;
 				color:#ffffff;
 				font-size:14px;
@@ -84,17 +87,46 @@
 	.el-table_1_column_1{
 		width:5% !important;
 	}
+	table {
+		width:100%;
+		tr {
+			height:40px;
+		}
+		th {
+			text-align: center;
+		}
+		td {
+			text-align: center;
+			button {
+				display: inline-block;
+				width:40px;
+				margin-right: 5px;
+				color:#ffffff;
+				border:none;
+				outline: none;
+				background-color:#20a0ff;
+				a {
+					color:#fff;
+					text-decoration: none;
+				}
+			}
+		}
+	}
 }
 .el-select-dropdown {
 	margin-top: 0 !important;
 	.list{
 		height:160px;
-		overflow-y: scroll;
+	}
+	.select_list {
+		height:110px;
+	}
+	.submit_list {
+		height:110px;
 	}
 	.short_title_list{
 		height:160px;
-		width:200px;
-		overflow-y: scroll;
+		width:194px;
 	}
 	.el-input__inner {
 		display: block;
@@ -120,6 +152,18 @@
 	}
 	.short_title_input .el-input__inner{
 		width:190px;
+		margin:0 auto;
+	}
+	.type_input .el-input__inner {
+		width:110px;
+		margin:0 auto;
+	}
+	.select_input .el-input__inner {
+		width:110px;
+		margin:0 auto;
+	}
+	.submit_input .el-input__inner {
+		width:110px;
 		margin:0 auto;
 	}
 }

@@ -7,7 +7,7 @@ class BlogController < ApplicationController
   end
 
   def show
-  	@article = User.find(params[:id])
+  	@article = Article.find(params[:id])
   end
 
   def new
@@ -19,6 +19,11 @@ class BlogController < ApplicationController
   end
 
   def edit
+  	@article = Article.find(params[:id])
+    respond_to do |format|
+      format.html { render :edit }
+      format.json { render json: @article }
+    end
   end
 
   def create
@@ -33,9 +38,19 @@ class BlogController < ApplicationController
   end
 
   def update
+  	@article = Article.find(params[:id])
+  	if @article.update(article_params)
+      render json: @article
+    else
+      render json: { errors: @article.errors }, status: :unprocessable_entity
+    end
   end
 
   def destroy
+  	scope = Article
+  	@article = Article.find(params[:id])
+  	@article.destroy!
+    head :no_content
   end
 
   private

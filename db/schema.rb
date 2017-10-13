@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011050823) do
+ActiveRecord::Schema.define(version: 20171011074212) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20171011050823) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "description", limit: 255
-    t.string   "sequence",    limit: 255
     t.string   "category",    limit: 255
     t.boolean  "is_submit"
     t.boolean  "is_select"
+    t.string   "sequence",    limit: 255
   end
 
 end
